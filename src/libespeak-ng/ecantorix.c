@@ -147,7 +147,7 @@ ESPEAK_NG_API espeak_ng_STATUS sinsy_ng_addNote(size_t duration,
     note->preutter=preutter;
     note->voiced=voiced;
     note->syllables=current_syllable;
-    if(note->syllables==1) tn_fnds_find_pulse_locations(note,0);
+    if(note->syllables>=1) tn_fnds_find_pulse_locations(note,0);
     current_note = 0;
     CArrayAdd(notes,(void*)note);
     return 0;
@@ -181,7 +181,7 @@ ESPEAK_NG_API float* sinsy_ng_getAudioData(int* length)
 	for(unsigned int i=0;i<CArrayCount(notes);i++)
 	{
 		ecantorix_note_t* note = CArrayObjectAtIndex(notes,i);
-		if(note->pitch!=255 && note->syllables==1)
+		if(note->pitch!=255 && note->syllables>=1)
 		{
 			//copy left voiced segment
 			int offset = note->start*samplerate;
